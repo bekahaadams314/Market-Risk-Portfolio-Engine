@@ -14,7 +14,7 @@ For a portfolio of $n$ assets with weight vector $w$ and simulated daily return 
 
 $$\text{VaR}_\alpha = \inf \{ l \in \mathbb{R} : P(L > l) \le 1 - \alpha \}$$
 
-Expected Shortfall (CVaR) is the expected loss *conditional* on being in the tail beyond that threshold — a sharper, more informative measure of how bad the bad days actually are:
+Expected Shortfall or Conditional Value at Risk (ES/CVaR) is the expected loss *conditional* on being in the tail beyond that threshold:
 
 $$\text{CVaR}_\alpha = \mathbb{E}[L \mid L \ge \text{VaR}_\alpha]$$
 

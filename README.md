@@ -35,7 +35,7 @@ References here:
 
 Portfolio allocations are also evaluated the way a capital project would be: multi-year value paths are simulated via compounded Monte Carlo returns, and the expected incremental value each year is discounted back to the present at rate $r$:
 
-$$\text{NPV} = -V_0 + \sum_{t=1}^{T} \frac{\mathbb{E}[\Delta V_t]}{(1+r)^t}$$
+$$\text{NPV} = \sum_{t=1}^{T} \frac{\mathbb{E}[\Delta V_t]}{(1+r)^t} - V_0 $$
 
 ### Explaining Optimizer Behavior: Risk Contribution & the Exact CVaR Gradient
 

@@ -57,7 +57,7 @@ Because the optimizer carries no explicit return floor, resulting weights reflec
 
 $$\sigma_p = \sum_{i=1}^{n} w_i \cdot \frac{(\Sigma w)_i}{\sigma_p}$$
 
-But the true, exact marginal contribution to *CVaR* — the actual objective being optimized — is a different quantity entirely: each asset's expected return, conditional only on the portfolio landing in its own worst-case scenarios:
+But the true, exact marginal contribution to *CVaR* (objective function) is a different quantity entirely: each asset's expected return, conditional only on the portfolio landing in its own worst-case scenarios:
 
 $$\frac{\partial\, \text{CVaR}_\alpha}{\partial w_i} = \mathbb{E}\left[-r_i \,\middle|\, L \ge \text{VaR}_\alpha \right]$$
 

@@ -20,25 +20,11 @@ $$\text{CVaR}_\alpha = \mathbb{E}[L \mid L \ge \text{VaR}_\alpha]$$
 
 ### Forward-Looking Volatility via XGBoost
 
-Rather than feeding the simulation trailing (realized) volatility, each asset's forward volatility is forecasted with a gradient-boosted regressor trained on lagged realized-volatility features:
-
-$$\hat{\sigma}_{i,t+h} = f_{\text{XGB}}\left(\sigma_{i,t-1}, \sigma_{i,t-2}, \dots, \sigma_{i,t-5}\right)$$
-
-The forecasted volatilities are combined with the historical correlation matrix $\rho$ to construct a forward-looking covariance matrix:
-
-$$\Sigma_{\text{forecast}} = D \, \rho \, D, \qquad D = \text{diag}(\hat{\sigma}_1, \dots, \hat{\sigma}_n)$$
+Rather than feeding the simulation trailing (realized) volatility, we forecast each asset's forward volatility with a gradient-boosted regressor trained on lagged realized-volatility features. We combine the forecasted volatilities with the historical correlation matrix $\rho$ to construct a forward-looking covariance matrix.
 
 ### CVaR-Minimizing Portfolio Optimization (Rockafellar–Uryasev)
 
-Rather than a mean-variance objective, portfolio weights are solved by directly minimizing CVaR over the simulated scenario set. The Rockafellar–Uryasev formulation replaces the non-smooth CVaR objective with an equivalent linear program by introducing an auxiliary threshold variable $\zeta$ and per-scenario slack variables $u_i$:
-
-$$
-\begin{aligned}
-\min_{w,\, \zeta,\, u} \quad & \zeta + \frac{1}{(1-\alpha)N}\sum_{i=1}^{N} u_i \\
-\text{s.t.} \quad & u_i \ge -w^\top r_i - \zeta, \qquad u_i \ge 0 \qquad \forall i \\
-& \sum_{j=1}^{n} w_j = 1, \qquad 0 \le w_j \le w_{\max}
-\end{aligned}
-$$
+Rather than a mean-variance objective, portfolio weights are solved by directly minimizing CVaR over the simulated scenario set. The Rockafellar–Uryasev formulation replaces the non-smooth CVaR objective with an equivalent linear program by introducing an auxiliary threshold variable and per-scenario slack variables.
 
 References here: 
 - [Risk-averse optimization: Linear Programming implementation of CVaR](https://hal.science/hal-04966655v2/document)
@@ -57,7 +43,7 @@ Because the optimizer carries no explicit return floor, resulting weights reflec
 
 $$\sigma_p = \sum_{i=1}^{n} w_i \cdot \frac{(\Sigma w)_i}{\sigma_p}$$
 
-But the true, exact marginal contribution to *CVaR* (objective function) is a different quantity entirely: each asset's expected return, conditional only on the portfolio landing in its own worst-case scenarios:
+But the true, exact marginal contribution to *CVaR* (objective function) is a different quantity entirely:
 
 $$\frac{\partial\, \text{CVaR}_\alpha}{\partial w_i} = \mathbb{E}\left[-r_i \,\middle|\, L \ge \text{VaR}_\alpha \right]$$
 

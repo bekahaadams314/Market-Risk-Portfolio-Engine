@@ -53,7 +53,10 @@ $$\frac{\partial\, \text{CVaR}_\alpha}{\partial w_i} = \mathbb{E}\left[-r_i \,\m
 - **Diversification value requires the right lens:** Correlation heatmaps and forecasted-vs-realized volatility comparisons each ruled out plausible-sounding explanations for specific allocations before the tail-conditional expected return (the exact CVaR gradient) gave a direct, assumption-free answer.
 - **CVaR-optimal allocations outperformed equal-weighting on expected NPV:** across tested asset universes and confidence levels, though the magnitude was sensitive to the mean-return estimation window and to per-asset weight caps, underscoring how much of portfolio optimization is really estimation-uncertainty management.
 
+## Future Work: 
+The current model focuses on CVaR or ES minimization. However, given the Hidden Markov Model's capability to track unobservable market phases such as calm, choppy, or stressed regimes, it would allow investors to dynamically adjust asset weights based on shifting market conditions. CVaR acts as a tail-risk constraint framework. Honestly, from an engineering standpoint, it's not bad in terms of practicing the application of objective function minimization relative to our desired solution. However, HMM would allow for a dynamic optimization approach, which is more practical for this application. 
+
 ## Languages used for this project:
 * **Languages:** Python
-* **Libraries:** NumPy, pandas, SciPy (`optimize.linprog`, `stats`), scikit-learn, XGBoost, yfinance, seaborn, matplotlib
+* **Libraries:** NumPy, pandas, SciPy, scikit-learn, XGBoost, yfinance, seaborn, matplotlib
 * **Environment:** Jupyter Notebooks
